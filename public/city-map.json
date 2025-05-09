@@ -7,7 +7,8 @@
       "z": 0
     },
     "height": 6.32,
-    "name": "Residential #284"
+    "name": "Residential #284",
+    "isRenting": true
   },
   {
     "id": "46fc0dd4-0192-4667-baa9-be95269417b9",
@@ -17,7 +18,8 @@
       "z": 12
     },
     "height": 5.42,
-    "name": "Residential #541"
+    "name": "Residential #541",
+    "isRenting": false
   },
   {
     "id": "1d7f490e-436b-43c6-844c-c4a25bf1c220",
