@@ -8,7 +8,11 @@ import { useEffect, useRef } from "react";
 import { useFrame, useThree } from "@react-three/fiber";
 import * as THREE from "three";
 
-export function Character() {
+export function Character({
+  onPositionUpdate,
+}: {
+  onPositionUpdate?: (v: THREE.Vector3) => void;
+}) {
   const { scene, animations } = useGLTF("/models/character.glb");
   const { actions } = useAnimations(animations, scene);
 
@@ -20,6 +24,13 @@ export function Character() {
 
   const direction = new THREE.Vector3();
   const velocity = new THREE.Vector3();
+
+  useFrame(() => {
+    if (rigidRef.current) {
+      const pos = rigidRef.current.translation();
+      onPositionUpdate?.(new THREE.Vector3(pos.x, pos.y, pos.z));
+    }
+  });
 
   useEffect(() => {
     animations.forEach((clip) => {
@@ -62,8 +73,11 @@ export function Character() {
     if (rigidRef.current && direction.lengthSq() > 0) {
       // 设置线速度
       velocity.copy(direction).multiplyScalar(speed);
-      // const currentY = rigidRef.current.linvel().y;
-      rigidRef.current.setLinvel({ x: velocity.x, y: 0, z: velocity.z }, true);
+      const currentY = rigidRef.current.linvel().y;
+      rigidRef.current.setLinvel(
+        { x: velocity.x, y: currentY, z: velocity.z },
+        true
+      );
 
       // 设置模型朝向
       const angle = Math.atan2(direction.x, direction.z);
@@ -78,7 +92,7 @@ export function Character() {
     // 摄像机追踪
     const pos = rigidRef.current?.translation();
     if (pos) {
-      const camOffset = new THREE.Vector3(0, 10, 15);
+      const camOffset = new THREE.Vector3(0, 5, 7);
       const camTarget = new THREE.Vector3(pos.x, pos.y, pos.z).add(camOffset);
       camera.position.lerp(camTarget, 0.3);
       camera.lookAt(pos.x, pos.y + 1, pos.z);
@@ -105,7 +119,7 @@ export function Character() {
       restitution={0}
       colliders={false}
       enabledRotations={[false, false, false]}
-      position={[0, 5, 0]}
+      position={[0, 0.5, 0]}
     >
       <CapsuleCollider args={[0.4, 1.2]} position={[0, 1.2, 0]} />
       <group ref={groupRef}>
