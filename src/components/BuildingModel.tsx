@@ -4,7 +4,8 @@ import { Suspense, useEffect, useState, useMemo } from "react";
 import { useNavigate } from "react-router-dom";
 import { EnvironmentOutlined } from "@ant-design/icons";
 import "../App.css";
-
+import City from "./MapScene/City";
+import City2 from "./MapScene/City2";
 interface BuildingData {
   id: string;
   position: { x: number; z: number };
@@ -58,40 +59,19 @@ function BuildingModel({
   );
 }
 
-// 主渲染城市逻辑：从 city-map.json 加载
-function City() {
-  const [buildings, setBuildings] = useState<BuildingData[]>([]);
-
-  useEffect(() => {
-    fetch("/city-map.json")
-      .then((res) => res.json())
-      .then(setBuildings);
-  }, []);
-
-  return (
-    <>
-      {buildings.map((b) => (
-        <BuildingModel
-          key={b.id}
-          id={b.id}
-          position={[b.position.x, 0, b.position.z]}
-          height={b.height}
-          isRenting={b.isRenting}
-        />
-      ))}
-    </>
-  );
-}
-
 function Building() {
   return (
     <div style={{ width: "100vw", height: "100vh" }}>
-      <Canvas camera={{ position: [20, 20, 20], fov: 50 }}>
+      <Canvas camera={{ position: [50, 30, 20], fov: 50 }}>
         <ambientLight intensity={0.6} />
         <directionalLight position={[10, 10, 5]} intensity={0.8} />
         <Environment preset="city" />
+        <axesHelper args={[10]} />
+        <gridHelper args={[100, 50]} />
+
         <Suspense fallback={null}>
           <City />
+          <City2 />
         </Suspense>
         <OrbitControls />
         <gridHelper args={[50, 25]} />
