@@ -120,7 +120,7 @@ export function StreetScene() {
             <SimpleRoom playerPosition={playerPosRef.current} />
             <Character onPositionUpdate={(v) => playerPosRef.current.copy(v)} />
           </Physics>
-          <Environment files="/public/models/sky.hdr" background />
+          <Environment files="/models/sky.hdr" background />
         </Suspense>
         <OrbitControls />
       </Canvas>
