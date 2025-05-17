@@ -4,37 +4,12 @@ import { OrbitControls } from "@react-three/drei";
 import { useGLTF } from "@react-three/drei";
 import RoomModel from "./RoomModel";
 import { useState } from "react";
-
-const roomsModel = [
-  {
-    name: "livingroom",
-    path: "/images/house1",
-    roomLabels: [
-      {
-        position: [-2, 0, -4.9] as [number, number, number],
-        navigateTo: "kitchen",
-      },
-      {
-        position: [-4.9, 0, 2] as [number, number, number],
-        navigateTo: "outside",
-      },
-    ],
-  },
-  {
-    name: "kitchen",
-    path: "/images/house2",
-    roomLabels: [
-      {
-        position: [-4.9, 0, -4] as [number, number, number],
-        navigateTo: "livingroom",
-      },
-    ],
-  },
-];
+import houseModels from "./InsideModel.json";
 
 const HouseInside = () => {
-  const [currentRoom, setCurrentRoom] = useState("livingroom");
-
+  const [currentRoom, setCurrentRoom] = useState("living room");
+  const houseId = "house1";
+  const roomsModel = houseModels[houseId];
   const currentRoomModel = roomsModel.find((room) => room.name === currentRoom);
   const [transitioning, setTransitioning] = useState(false);
 
@@ -60,7 +35,16 @@ const HouseInside = () => {
         <ambientLight intensity={4} />
         <RoomModel
           path={currentRoomModel.path}
-          roomLabels={currentRoomModel.roomLabels}
+          roomLabels={currentRoomModel.roomLabels.map(
+            (label: { position: number[]; navigateTo: string }) => ({
+              ...label,
+              position: [
+                label.position[0] ?? 0,
+                label.position[1] ?? 0,
+                label.position[2] ?? 0,
+              ] as [number, number, number],
+            })
+          )}
           onClick={handleRoomChange}
         />
         <OrbitControls

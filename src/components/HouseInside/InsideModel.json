@@ -1,0 +1,60 @@
+{
+  "house1": [
+    {
+      "name": "living room",
+      "path": "/images/house3/livingroom",
+      "roomLabels": [
+        {
+          "position": [1.5, 0, -4.9],
+          "navigateTo": "kitchen"
+        },
+        {
+          "position": [-2, 0, -4.9],
+          "navigateTo": "bathroom"
+        }
+      ]
+    },
+    {
+      "name": "kitchen",
+      "path": "/images/house3/kitchen",
+      "roomLabels": [
+        {
+          "position": [2, 0, -4.9],
+          "navigateTo": "living room"
+        }
+      ]
+    },
+    {
+      "name": "bathroom",
+      "path": "/images/house3/bathroom",
+      "roomLabels": [
+        {
+          "position": [-2, 0, -4.9],
+          "navigateTo": "living room"
+        }
+      ]
+    }
+  ],
+  "house2": [
+    {
+      "name": "living room",
+      "path": "/images/house1",
+      "roomLabels": [
+        {
+          "position": [-2, 0, -4.9],
+          "navigateTo": "kitchen"
+        }
+      ]
+    },
+    {
+      "name": "kitchen",
+      "path": "/images/house2",
+      "roomLabels": [
+        {
+          "position": [-4.9, 0, -4],
+          "navigateTo": "living room"
+        }
+      ]
+    }
+  ]
+}
