@@ -16,6 +16,19 @@ interface BuildingData {
   isRenting?: boolean;
 }
 
+function Ground() {
+  const { scene } = useGLTF("/source/grass_floor.glb");
+  const ground = useMemo(() => scene.clone(), [scene]);
+
+  return (
+    <primitive
+      object={ground}
+      position={[0, 66, -30]} // 微微低于城市底部，避免 z-fighting
+      scale={[2.5, 2.5, 2.5]} // 根据你的城市大小调节
+    />
+  );
+}
+
 function BuildingModel({
   id,
   position,
@@ -65,19 +78,30 @@ function BuildingModel({
 function Building() {
   return (
     <div style={{ width: "100vw", height: "100vh" }}>
-      <Canvas camera={{ position: [50, 30, 20], fov: 50 }}>
+      <Canvas
+        camera={{ position: [100, 60, 100], fov: 50 }}
+        onCreated={({ gl }) => {
+          gl.setClearColor("#a3d5ff");
+        }}
+      >
         <ambientLight intensity={0.6} />
         <directionalLight position={[10, 10, 5]} intensity={0.8} />
-        <Environment preset="city" />
+        <Environment preset="forest" />
 
         <Suspense fallback={null}>
+          <Ground />
           <City />
           <City2 />
           <Road />
           <Deco />
           <Supermarket />
         </Suspense>
-        <OrbitControls />
+        <OrbitControls
+          enablePan={false}
+          enableZoom={false}
+          minPolarAngle={Math.PI / 4}
+          maxPolarAngle={Math.PI / 2}
+        />
       </Canvas>
     </div>
   );

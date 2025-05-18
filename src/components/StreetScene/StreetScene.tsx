@@ -5,10 +5,11 @@ import * as THREE from "three";
 import { Environment, OrbitControls, useGLTF, Html } from "@react-three/drei";
 import { Character } from "../../utils/Character";
 import { EnvironmentOutlined } from "@ant-design/icons";
-import { color } from "three/tsl";
-
+import { Loader } from "./Loader";
+import { useNavigate } from "react-router-dom";
 function SimpleRoom({ playerPosition }: { playerPosition: THREE.Vector3 }) {
   const { scene } = useGLTF("/models/street_new.glb");
+  const navigate = useNavigate();
 
   const [buildingObjects, setBuildingObjects] = useState<THREE.Object3D[]>([]);
   const [targetBuilding, setTargetBuilding] = useState<THREE.Object3D | null>(
@@ -53,7 +54,8 @@ function SimpleRoom({ playerPosition }: { playerPosition: THREE.Vector3 }) {
     const handleKey = (e: KeyboardEvent) => {
       if (e.key.toLowerCase() === "e" && targetBuilding) {
         alert(`Enter Home: ${targetBuilding.name}`);
-        // TODO: 替换为跳转逻辑 navigate(`/house/${targetBuilding.name}`)
+        // TODO: 替换为跳转逻辑
+        navigate(`/insideHouse/${targetBuilding.name}`);
       }
     };
     window.addEventListener("keydown", handleKey);
@@ -117,6 +119,7 @@ export function StreetScene() {
   const playerPosRef = useRef(new THREE.Vector3());
   return (
     <div style={{ width: "100vw", height: "100vh" }}>
+      <Loader />
       <Canvas camera={{ position: [0, 3, 10], fov: 60 }} shadows>
         <ambientLight intensity={0.5} />
         <directionalLight position={[10, 10, 5]} intensity={1} castShadow />

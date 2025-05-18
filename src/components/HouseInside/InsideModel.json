@@ -1,5 +1,5 @@
 {
-  "house1": {
+  "building6": {
     "Interior": "/images/house3/Interior.png",
     "rooms": [
       {
@@ -39,7 +39,7 @@
     ]
   },
 
-  "house2": {
+  "building5": {
     "Interior": "/images/house3/Interior.png",
     "rooms": [
       {

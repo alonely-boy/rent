@@ -5,11 +5,16 @@ import { useGLTF } from "@react-three/drei";
 import RoomModel from "./RoomModel";
 import { useState } from "react";
 import houseModels from "./InsideModel.json";
+import { useParams } from "react-router-dom";
 
 const HouseInside = () => {
+  type HouseId = keyof typeof houseModels;
+
+  const { houseId } = useParams();
   const [currentRoom, setCurrentRoom] = useState("living room");
-  const houseId = "house1";
-  const roomsModel = houseModels[houseId].rooms;
+
+  const key = houseId as HouseId;
+  const roomsModel = houseModels[key].rooms;
   const currentRoomModel = roomsModel.find((room) => room.name === currentRoom);
   const [transitioning, setTransitioning] = useState(false);
 
