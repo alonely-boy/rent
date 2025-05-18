@@ -5,9 +5,10 @@ import * as THREE from "three";
 import { Environment, OrbitControls, useGLTF, Html } from "@react-three/drei";
 import { Character } from "../../utils/Character";
 import { EnvironmentOutlined } from "@ant-design/icons";
+import { color } from "three/tsl";
 
 function SimpleRoom({ playerPosition }: { playerPosition: THREE.Vector3 }) {
-  const { scene } = useGLTF("/models/house.glb");
+  const { scene } = useGLTF("/models/street_new.glb");
 
   const [buildingObjects, setBuildingObjects] = useState<THREE.Object3D[]>([]);
   const [targetBuilding, setTargetBuilding] = useState<THREE.Object3D | null>(
@@ -22,7 +23,8 @@ function SimpleRoom({ playerPosition }: { playerPosition: THREE.Vector3 }) {
         targets.push(obj);
       }
     });
-    console.log(targets);
+
+    console.log("建筑物对象", targets);
     setBuildingObjects(targets);
   }, [scene]);
 
@@ -30,12 +32,13 @@ function SimpleRoom({ playerPosition }: { playerPosition: THREE.Vector3 }) {
   useFrame(() => {
     if (!playerPosition || buildingObjects.length === 0) return;
 
-    const threshold = 5; // 距离阈值
+    const threshold = 3; // 距离阈值
     let found: THREE.Object3D | null = null;
 
     for (const obj of buildingObjects) {
       const pos = new THREE.Vector3();
       obj.getWorldPosition(pos);
+      // console.log("建筑物位置", pos);
       if (playerPosition.distanceTo(pos) < threshold) {
         found = obj;
         break;
@@ -45,38 +48,17 @@ function SimpleRoom({ playerPosition }: { playerPosition: THREE.Vector3 }) {
     setTargetBuilding(found);
   });
 
-  console.log(targetBuilding);
   // 监听 E 键进入房屋
   useEffect(() => {
     const handleKey = (e: KeyboardEvent) => {
       if (e.key.toLowerCase() === "e" && targetBuilding) {
-        alert(`🏠 进入房屋: ${targetBuilding.name}`);
+        alert(`Enter Home: ${targetBuilding.name}`);
         // TODO: 替换为跳转逻辑 navigate(`/house/${targetBuilding.name}`)
       }
     };
     window.addEventListener("keydown", handleKey);
     return () => window.removeEventListener("keydown", handleKey);
   }, [targetBuilding]);
-
-  const BuildingHint = ({ position }: { position: THREE.Vector3 }) => {
-    const pos = position.clone();
-    pos.y += 2;
-
-    return (
-      <Html position={pos.toArray()} center>
-        <div
-          style={{
-            padding: 6,
-            borderRadius: 4,
-            fontSize: 14,
-            border: "1px solid #ccc",
-          }}
-        >
-          按 <kbd>E</kbd> 进入房屋
-        </div>
-      </Html>
-    );
-  };
 
   return (
     <>
@@ -86,24 +68,47 @@ function SimpleRoom({ playerPosition }: { playerPosition: THREE.Vector3 }) {
       {buildingObjects.map((obj, idx) => {
         const worldPos = new THREE.Vector3();
         obj.getWorldPosition(worldPos);
-        worldPos.y += 0; // 标签位置略高于建筑
+        worldPos.y += 0;
+
+        const isNear = playerPosition.distanceTo(worldPos) < 3;
 
         return (
-          <Html
-            key={idx}
-            position={worldPos.toArray()}
-            distanceFactor={10}
-            style={{
-              pointerEvents: "none",
-            }}
-          >
-            <EnvironmentOutlined
-              style={{ fontSize: "200px", color: "#3f9cff" }}
-            />
-          </Html>
+          <group key={idx}>
+            <Html
+              position={worldPos.toArray()}
+              distanceFactor={10}
+              style={{ pointerEvents: "none" }}
+            >
+              <EnvironmentOutlined
+                style={{ fontSize: "150px", color: "#3f9cff" }}
+              />
+            </Html>
+
+            {isNear && (
+              <Html
+                position={[worldPos.x, worldPos.y + 2, worldPos.z]}
+                center
+                distanceFactor={8}
+              >
+                <div
+                  style={{
+                    padding: 6,
+                    borderRadius: 8,
+                    fontSize: 20,
+                    background: "rgba(0,0,0,0.5)",
+                    color: "#fff",
+                    border: "1px solid #555",
+                    whiteSpace: "nowrap",
+                  }}
+                >
+                  Press E to enter:{" "}
+                  <b style={{ color: "yellow" }}>{obj.name}</b>
+                </div>
+              </Html>
+            )}
+          </group>
         );
       })}
-      {targetBuilding && <BuildingHint position={playerPosition} />}
     </>
   );
 }

@@ -7,7 +7,7 @@ function App() {
   return (
     <Routes>
       <Route path="/" element={<Building />} />
-      <Route path="/street/:id" element={<StreetScene />} />
+      <Route path="/street" element={<StreetScene />} />
       <Route path="/insideHouse" element={<HouseInside />} />
     </Routes>
   );

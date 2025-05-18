@@ -9,7 +9,7 @@ import houseModels from "./InsideModel.json";
 const HouseInside = () => {
   const [currentRoom, setCurrentRoom] = useState("living room");
   const houseId = "house1";
-  const roomsModel = houseModels[houseId];
+  const roomsModel = houseModels[houseId].rooms;
   const currentRoomModel = roomsModel.find((room) => room.name === currentRoom);
   const [transitioning, setTransitioning] = useState(false);
 
@@ -27,10 +27,59 @@ const HouseInside = () => {
       style={{
         width: "100vw",
         height: "100vh",
+        position: "relative",
         transition: "opacity 0.5s ease",
         opacity: transitioning ? 0 : 1,
       }}
     >
+      <div
+        style={{
+          position: "absolute",
+          top: 20,
+          left: "50%",
+          transform: "translateX(-50%)",
+          backgroundColor: "rgba(0,0,0,0.5)",
+          color: "white",
+          padding: "8px 16px",
+          borderRadius: "8px",
+          fontSize: "18px",
+          zIndex: 1,
+        }}
+      >
+        {currentRoom}
+      </div>
+
+      <div
+        style={{
+          position: "absolute",
+          top: "20px",
+          right: "20px",
+          backgroundColor: "rgba(255, 255, 255, 0.9)",
+          padding: "10px",
+          borderRadius: "8px",
+          fontSize: "14px",
+          zIndex: 10,
+          boxShadow: "0 0 5px rgba(0,0,0,0.2)",
+        }}
+      >
+        {roomsModel.map((room) => (
+          <div
+            key={room.name}
+            style={{
+              padding: "4px 8px",
+              borderRadius: "4px",
+              backgroundColor:
+                room.name === currentRoom ? "#007bff" : "#e0e0e0",
+              color: room.name === currentRoom ? "white" : "#333",
+              fontWeight: room.name === currentRoom ? "bold" : "normal",
+              marginBottom: "4px",
+            }}
+          >
+            {room.name}
+          </div>
+        ))}
+      </div>
+
       <Canvas camera={{ position: [0, 1, 0], fov: 75 }}>
         <ambientLight intensity={4} />
         <RoomModel

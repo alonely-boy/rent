@@ -1,60 +1,67 @@
 {
-  "house1": [
-    {
-      "name": "living room",
-      "path": "/images/house3/livingroom",
-      "roomLabels": [
-        {
-          "position": [1.5, 0, -4.9],
-          "navigateTo": "kitchen"
-        },
-        {
-          "position": [-2, 0, -4.9],
-          "navigateTo": "bathroom"
-        }
-      ]
-    },
-    {
-      "name": "kitchen",
-      "path": "/images/house3/kitchen",
-      "roomLabels": [
-        {
-          "position": [2, 0, -4.9],
-          "navigateTo": "living room"
-        }
-      ]
-    },
-    {
-      "name": "bathroom",
-      "path": "/images/house3/bathroom",
-      "roomLabels": [
-        {
-          "position": [-2, 0, -4.9],
-          "navigateTo": "living room"
-        }
-      ]
-    }
-  ],
-  "house2": [
-    {
-      "name": "living room",
-      "path": "/images/house1",
-      "roomLabels": [
-        {
-          "position": [-2, 0, -4.9],
-          "navigateTo": "kitchen"
-        }
-      ]
-    },
-    {
-      "name": "kitchen",
-      "path": "/images/house2",
-      "roomLabels": [
-        {
-          "position": [-4.9, 0, -4],
-          "navigateTo": "living room"
-        }
-      ]
-    }
-  ]
+  "house1": {
+    "Interior": "/images/house3/Interior.png",
+    "rooms": [
+      {
+        "name": "living room",
+        "path": "/images/house3/livingroom",
+        "roomLabels": [
+          {
+            "position": [1.5, 0, -4.9],
+            "navigateTo": "kitchen"
+          },
+          {
+            "position": [-2, 0, -4.9],
+            "navigateTo": "bedroom"
+          }
+        ]
+      },
+      {
+        "name": "kitchen",
+        "path": "/images/house3/kitchen",
+        "roomLabels": [
+          {
+            "position": [2, 0, -4.9],
+            "navigateTo": "living room"
+          }
+        ]
+      },
+      {
+        "name": "bedroom",
+        "path": "/images/house3/bathroom",
+        "roomLabels": [
+          {
+            "position": [-2, 0, -4.9],
+            "navigateTo": "living room"
+          }
+        ]
+      }
+    ]
+  },
+
+  "house2": {
+    "Interior": "/images/house3/Interior.png",
+    "rooms": [
+      {
+        "name": "living room",
+        "path": "/images/house1",
+        "roomLabels": [
+          {
+            "position": [-2, 0, -4.9],
+            "navigateTo": "kitchen"
+          }
+        ]
+      },
+      {
+        "name": "kitchen",
+        "path": "/images/house2",
+        "roomLabels": [
+          {
+            "position": [-4.9, 0, -4],
+            "navigateTo": "living room"
+          }
+        ]
+      }
+    ]
+  }
 }
