@@ -1,0 +1,72 @@
+[
+  {
+    "id": "market1",
+    "type": 0,
+    "position": {
+      "x": -4,
+      "z": 5
+    },
+    "scale": 0.013,
+    "rotationY": 0
+  },
+  {
+    "id": "market2",
+    "type": 1,
+    "position": {
+      "x": 30,
+      "z": 16
+    },
+    "scale": 1,
+    "rotationY": 0
+  },
+  {
+    "id": "market3",
+    "type": 0,
+    "position": {
+      "x": 24,
+      "z": 54
+    },
+    "scale": 0.014,
+    "rotationY": 0
+  },
+  {
+    "id": "market4",
+    "type": 1,
+    "position": {
+      "x": -20,
+      "z": 32
+    },
+    "scale": 1,
+    "rotationY": 0
+  },
+  {
+    "id": "market5",
+    "type": 0,
+    "position": {
+      "x": -86,
+      "z": 36
+    },
+    "scale": 0.014,
+    "rotationY": 0
+  },
+  {
+    "id": "market6",
+    "type": 1,
+    "position": {
+      "x": 86,
+      "z": -8
+    },
+    "scale": 0.013,
+    "rotationY": 0
+  },
+  {
+    "id": "market7",
+    "type": 0,
+    "position": {
+      "x": 94,
+      "z": -25
+    },
+    "scale": 0.013,
+    "rotationY": 0
+  }
+]

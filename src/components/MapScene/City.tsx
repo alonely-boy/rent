@@ -7,7 +7,7 @@ interface BuildingData {
   type: number;
   position: { x: number; z: number };
   height: number;
-  rotationY?: number;
+  rotationZ?: number;
   isRenting?: boolean;
 }
 
@@ -59,7 +59,8 @@ export default function City() {
             key={b.id}
             object={model}
             position={[b.position.x, 0, b.position.z]}
-            scale={[1, b.height / 5, 1]}
+            scale={[b.height/12, b.height / 12, b.height / 12]}
+            rotation={[-Math.PI/2, 0, b.rotationZ ?? Math.PI/2]}
           />
         );
       })}

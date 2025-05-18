@@ -6,6 +6,9 @@ import { EnvironmentOutlined } from "@ant-design/icons";
 import "../App.css";
 import City from "./MapScene/City";
 import City2 from "./MapScene/City2";
+import Supermarket from "./MapScene/Supermarket";
+import Road from "./MapScene/Road";
+import Deco from "./MapScene/Deco";
 interface BuildingData {
   id: string;
   position: { x: number; z: number };
@@ -66,15 +69,15 @@ function Building() {
         <ambientLight intensity={0.6} />
         <directionalLight position={[10, 10, 5]} intensity={0.8} />
         <Environment preset="city" />
-        <axesHelper args={[10]} />
-        <gridHelper args={[100, 50]} />
 
         <Suspense fallback={null}>
           <City />
           <City2 />
+          <Road />
+          <Deco />
+          <Supermarket />
         </Suspense>
         <OrbitControls />
-        <gridHelper args={[50, 25]} />
       </Canvas>
     </div>
   );
