@@ -53,7 +53,7 @@ export default function City2() {
           <primitive
             key={b.id}
             object={model}
-            position={[b.position.x, 0, b.position.z]}
+            position={[b.position.x, b.height/10, b.position.z]}
             scale={[1, b.height / 5, 1]}
           />
         );
