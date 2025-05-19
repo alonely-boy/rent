@@ -60,7 +60,7 @@ export function Character({
     currentAction.current = name;
   };
 
-  useFrame((_, delta) => {
+  useFrame(() => {
     const speed = keys.current["shift"] ? 5 : 2.5;
 
     direction.set(0, 0, 0);

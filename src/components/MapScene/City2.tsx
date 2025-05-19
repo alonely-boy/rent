@@ -3,6 +3,7 @@ import { useGLTF, Html } from "@react-three/drei";
 import { useMemo, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { EnvironmentOutlined } from "@ant-design/icons";
+import * as THREE from "three";
 
 interface BuildingData {
   id: string;

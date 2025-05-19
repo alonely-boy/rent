@@ -8,12 +8,6 @@ import Supermarket from "./MapScene/Supermarket";
 import Road from "./MapScene/Road";
 import Deco from "./MapScene/Deco";
 import { Loader } from "../components/StreetScene/Loader";
-interface BuildingData {
-  id: string;
-  position: { x: number; z: number };
-  height: number;
-  isRenting?: boolean;
-}
 
 function Ground() {
   const { scene } = useGLTF("/source/grass_floor.glb");

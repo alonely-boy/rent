@@ -2,7 +2,6 @@
 import { useGLTF } from "@react-three/drei";
 import { useMemo, useEffect, useState } from "react";
 import * as THREE from "three";
-import { useNavigate } from "react-router-dom";
 
 interface RoadSegment {
   id: string;
@@ -14,7 +13,6 @@ interface RoadSegment {
 }
 
 export default function Road() {
-  const navigate = useNavigate();
   const { scene } = useGLTF("/models/map/road.glb");
   const [segments, setSegments] = useState<RoadSegment[]>([]);
 
