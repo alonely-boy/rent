@@ -1,9 +1,8 @@
 // src/components/StreetScene/Road.tsx
-import { useGLTF, Html } from "@react-three/drei";
+import { useGLTF } from "@react-three/drei";
 import { useMemo, useEffect, useState } from "react";
 import * as THREE from "three";
 import { useNavigate } from "react-router-dom";
-import { EnvironmentOutlined } from "@ant-design/icons";
 
 interface RoadSegment {
   id: string;

@@ -1,8 +1,6 @@
 import { Canvas } from "@react-three/fiber";
-import { OrbitControls, useGLTF, Environment, Html } from "@react-three/drei";
-import { Suspense, useEffect, useState, useMemo } from "react";
-import { useNavigate } from "react-router-dom";
-import { EnvironmentOutlined } from "@ant-design/icons";
+import { OrbitControls, useGLTF, Environment } from "@react-three/drei";
+import { Suspense, useMemo } from "react";
 import "../App.css";
 import City from "./MapScene/City";
 import City2 from "./MapScene/City2";

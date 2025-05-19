@@ -1,7 +1,5 @@
-import { Canvas, useLoader } from "@react-three/fiber";
-import * as THREE from "three";
+import { Canvas } from "@react-three/fiber";
 import { OrbitControls } from "@react-three/drei";
-import { useGLTF } from "@react-three/drei";
 import RoomModel from "./RoomModel";
 import { useState } from "react";
 import houseModels from "./InsideModel.json";

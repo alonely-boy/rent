@@ -1,7 +1,6 @@
 // src/components/StreetScene/City2.tsx
 import { useGLTF, Html } from "@react-three/drei";
 import { useMemo, useEffect, useState } from "react";
-import { div } from "three/tsl";
 import { useNavigate } from "react-router-dom";
 import { EnvironmentOutlined } from "@ant-design/icons";
 
