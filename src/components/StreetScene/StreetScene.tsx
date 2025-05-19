@@ -6,15 +6,18 @@ import { Environment, OrbitControls, useGLTF, Html } from "@react-three/drei";
 import { Character } from "../../utils/Character";
 import { EnvironmentOutlined } from "@ant-design/icons";
 import { Loader } from "./Loader";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
+
 function SimpleRoom({ playerPosition }: { playerPosition: THREE.Vector3 }) {
   const { scene } = useGLTF("/models/street_new.glb");
+
   const navigate = useNavigate();
 
   const [buildingObjects, setBuildingObjects] = useState<THREE.Object3D[]>([]);
   const [targetBuilding, setTargetBuilding] = useState<THREE.Object3D | null>(
     null
   );
+  const isRenting = ["building6", "building3"];
 
   useEffect(() => {
     const targets: THREE.Object3D[] = [];
@@ -25,7 +28,6 @@ function SimpleRoom({ playerPosition }: { playerPosition: THREE.Vector3 }) {
       }
     });
 
-    console.log("建筑物对象", targets);
     setBuildingObjects(targets);
   }, [scene]);
 
@@ -39,7 +41,6 @@ function SimpleRoom({ playerPosition }: { playerPosition: THREE.Vector3 }) {
     for (const obj of buildingObjects) {
       const pos = new THREE.Vector3();
       obj.getWorldPosition(pos);
-      // console.log("建筑物位置", pos);
       if (playerPosition.distanceTo(pos) < threshold) {
         found = obj;
         break;
@@ -67,10 +68,11 @@ function SimpleRoom({ playerPosition }: { playerPosition: THREE.Vector3 }) {
       <RigidBody type="fixed" colliders="trimesh">
         <primitive object={scene} />
       </RigidBody>
+
       {buildingObjects.map((obj, idx) => {
+        if (!isRenting.includes(obj.name)) return null;
         const worldPos = new THREE.Vector3();
         obj.getWorldPosition(worldPos);
-        worldPos.y += 0;
 
         const isNear = playerPosition.distanceTo(worldPos) < 3;
 
@@ -117,21 +119,54 @@ function SimpleRoom({ playerPosition }: { playerPosition: THREE.Vector3 }) {
 
 export function StreetScene() {
   const playerPosRef = useRef(new THREE.Vector3());
-  return (
-    <div style={{ width: "100vw", height: "100vh" }}>
-      <Loader />
-      <Canvas camera={{ position: [0, 3, 10], fov: 60 }} shadows>
-        <ambientLight intensity={0.5} />
-        <directionalLight position={[10, 10, 5]} intensity={1} castShadow />
-        <Suspense fallback={null}>
-          <Physics gravity={[0, -9.81, 0]}>
-            <SimpleRoom playerPosition={playerPosRef.current} />
-            <Character onPositionUpdate={(v) => playerPosRef.current.copy(v)} />
-          </Physics>
-          <Environment files="/models/sky.hdr" background />
-        </Suspense>
-        <OrbitControls />
-      </Canvas>
-    </div>
-  );
+  const { houseId } = useParams();
+  const typeModel: Record<string, string> = {
+    c223: "type1",
+    "e688036a-f93c-47a0-94f8-e83a380f0db0": "type1",
+    "734f1f1f-2331-4044-8999-3ee4e329d01f": "type2",
+    c386: "type2",
+  };
+
+  if (typeModel[houseId!] === "type1") {
+    return (
+      <div style={{ width: "100vw", height: "100vh" }}>
+        <Loader />
+        <Canvas camera={{ position: [0, 3, 10], fov: 60 }} shadows>
+          <ambientLight intensity={0.5} />
+          <directionalLight position={[10, 10, 5]} intensity={1} castShadow />
+          <Suspense fallback={null}>
+            <Physics gravity={[0, -9.81, 0]}>
+              <SimpleRoom playerPosition={playerPosRef.current} />
+              <Character
+                onPositionUpdate={(v) => playerPosRef.current.copy(v)}
+              />
+            </Physics>
+            <Environment files="/models/sky.hdr" background />
+          </Suspense>
+          <OrbitControls />
+        </Canvas>
+      </div>
+    );
+  } else if (typeModel[houseId!] === "type2") {
+    return (
+      <div style={{ width: "100vw", height: "100vh" }}>
+        <Loader />
+        <Canvas camera={{ position: [0, 3, 10], fov: 60 }} shadows>
+          <ambientLight intensity={0.5} />
+          <directionalLight position={[10, 10, 5]} intensity={1} castShadow />
+          <Suspense fallback={null}>
+            <Physics gravity={[0, -9.81, 0]}>
+              <SimpleRoom playerPosition={playerPosRef.current} />
+              <Character
+                onPositionUpdate={(v) => playerPosRef.current.copy(v)}
+              />
+            </Physics>
+            {/* <Environment files="/models/sky.hdr" background /> */}
+            <Environment preset="forest" background />
+          </Suspense>
+          <OrbitControls />
+        </Canvas>
+      </div>
+    );
+  }
 }

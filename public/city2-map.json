@@ -7,7 +7,8 @@
       "z": 41
     },
     "height": 12,
-    "rotationY": 0
+    "rotationY": 0,
+    "isRenting": true
   },
   {
     "id": "b0d95edc-23ba-4549-8425-39d43496f158",
@@ -107,7 +108,8 @@
       "z": -9
     },
     "height": 11,
-    "rotationY": 180
+    "rotationY": 180,
+    "isRenting": true
   },
   {
     "id": "e56661f6-6ce3-4ef1-9f8a-40ea75a30042",

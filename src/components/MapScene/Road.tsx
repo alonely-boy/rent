@@ -1,16 +1,21 @@
 // src/components/StreetScene/Road.tsx
-import { useGLTF } from "@react-three/drei";
+import { useGLTF, Html } from "@react-three/drei";
 import { useMemo, useEffect, useState } from "react";
+import * as THREE from "three";
+import { useNavigate } from "react-router-dom";
+import { EnvironmentOutlined } from "@ant-design/icons";
 
 interface RoadSegment {
   id: string;
   group: string; // Which road it belongs to
-  type: number;  // Which tile to use
+  type: number; // Which tile to use
   position: { x: number; z: number };
   rotationZ?: number;
+  isNear?: boolean;
 }
 
 export default function Road() {
+  const navigate = useNavigate();
   const { scene } = useGLTF("/models/map/road.glb");
   const [segments, setSegments] = useState<RoadSegment[]>([]);
 
@@ -32,15 +37,34 @@ export default function Road() {
 
   return (
     <>
-      {segments.map((seg) => {
+      {segments.map((seg, index) => {
         const tile = tiles[seg.type]?.clone();
         if (!tile) return null;
+
+        // 处理材质：设置为绿色或发光
+        tile.traverse((child) => {
+          if ((child as THREE.Mesh).isMesh) {
+            const mesh = child as THREE.Mesh;
+            const material = (
+              mesh.material as THREE.MeshStandardMaterial
+            ).clone();
+
+            if (seg.isNear) {
+              material.color.set("#000"); // 变绿色
+              material.emissive = new THREE.Color("#00ff00"); // 添加发光
+              material.emissiveIntensity = 1.2;
+            }
+
+            mesh.material = material;
+          }
+        });
+
         return (
           <primitive
-            key={seg.id}
+            key={`${seg.id}-${index}`}
             object={tile}
             position={[seg.position.x, 0, seg.position.z]}
-            rotation={[Math.PI/2, 0, seg.rotationZ ?? Math.PI/2]}
+            rotation={[Math.PI / 2, 0, seg.rotationZ ?? Math.PI / 2]}
           />
         );
       })}

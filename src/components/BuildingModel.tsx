@@ -9,6 +9,7 @@ import City2 from "./MapScene/City2";
 import Supermarket from "./MapScene/Supermarket";
 import Road from "./MapScene/Road";
 import Deco from "./MapScene/Deco";
+import { Loader } from "../components/StreetScene/Loader";
 interface BuildingData {
   id: string;
   position: { x: number; z: number };
@@ -29,55 +30,10 @@ function Ground() {
   );
 }
 
-function BuildingModel({
-  id,
-  position,
-  height,
-  isRenting = false,
-}: {
-  id: string;
-  position: [number, number, number];
-  height: number;
-  isRenting?: boolean;
-}) {
-  const { scene } = useGLTF("/models/apartment.glb");
-  const model = useMemo(() => scene.clone(), [scene]);
-  const navigate = useNavigate();
-  const scaleY = height / 4;
-
-  return (
-    <>
-      <primitive
-        object={model}
-        position={[position[0], 0, position[2]]}
-        scale={[1, scaleY, 1]}
-      />
-      {isRenting && (
-        <Html
-          position={[position[0], 2 * height + 4, position[2]]}
-          distanceFactor={10}
-          style={{ pointerEvents: "auto" }}
-        >
-          <div
-            onClick={() => navigate(`/street/${id}`)}
-            style={{
-              cursor: "pointer",
-              animation: "float 1.5s ease-in-out infinite",
-            }}
-          >
-            <EnvironmentOutlined
-              style={{ fontSize: "200px", color: "#3f9cff" }}
-            />
-          </div>
-        </Html>
-      )}
-    </>
-  );
-}
-
 function Building() {
   return (
     <div style={{ width: "100vw", height: "100vh" }}>
+      <Loader />
       <Canvas
         camera={{ position: [100, 60, 100], fov: 50 }}
         onCreated={({ gl }) => {
@@ -98,7 +54,7 @@ function Building() {
         </Suspense>
         <OrbitControls
           enablePan={false}
-          enableZoom={false}
+          enableZoom={true}
           minPolarAngle={Math.PI / 4}
           maxPolarAngle={Math.PI / 2}
         />

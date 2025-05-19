@@ -59,7 +59,11 @@ export default function Deco() {
         return (
           <group
             key={item.id}
-            position={[item.position.x, item.type===2?item.scale*6*100:item.scale*4, item.position.z]}
+            position={[
+              item.position.x,
+              item.type === 2 ? item.scale * 6 * 100 : item.scale * 4,
+              item.position.z,
+            ]}
             rotation={[0, ry, 0]}
             scale={[s, s, s]}
           >

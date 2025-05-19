@@ -31,7 +31,6 @@ export default function Market() {
     <>
       {markets.map((m) => {
         const model = models[m.type]?.clone();
-        console.log("model", models);
         if (!model) return null;
         return (
           <primitive

@@ -1,6 +1,9 @@
 // src/components/StreetScene/City2.tsx
-import { useGLTF } from "@react-three/drei";
+import { useGLTF, Html } from "@react-three/drei";
 import { useMemo, useEffect, useState } from "react";
+import { div } from "three/tsl";
+import { useNavigate } from "react-router-dom";
+import { EnvironmentOutlined } from "@ant-design/icons";
 
 interface BuildingData {
   id: string;
@@ -12,6 +15,7 @@ interface BuildingData {
 }
 
 export default function City2() {
+  const navigate = useNavigate();
   const { scene } = useGLTF("/models/map/buildings.glb");
   const [buildings, setBuildings] = useState<BuildingData[]>([]);
 
@@ -32,10 +36,6 @@ export default function City2() {
         models.push(child);
       }
     });
-    // console.log("[City2] Filtered building count:", models.length);
-    // models.forEach((m, i) => {
-      // console.log(`[City2] Building[${i}]:`, m.name, m.type);
-    // });
     return models;
   }, [scene]);
 
@@ -50,12 +50,45 @@ export default function City2() {
         model.rotation.x = -Math.PI / 2;
 
         return (
-          <primitive
-            key={b.id}
-            object={model}
-            position={[b.position.x, b.height/10, b.position.z]}
-            scale={[1, b.height / 5, 1]}
-          />
+          <group key={b.id}>
+            <primitive
+              object={model}
+              position={[b.position.x, b.height / 10, b.position.z]}
+              scale={[1, b.height / 5, 1]}
+            />
+
+            {b.isRenting && (
+              <Html
+                position={[b.position.x, b.height / 10 + 10, b.position.z]}
+                distanceFactor={10}
+                style={{ pointerEvents: "auto" }}
+              >
+                <div
+                  onClick={() => navigate(`/street/${b.id}`)}
+                  style={{
+                    cursor: "pointer",
+                    animation: "float 1.5s ease-in-out infinite",
+                  }}
+                >
+                  <div
+                    style={{
+                      fontSize: "250px",
+                      fontWeight: "bold",
+                      color: "#000",
+                      marginTop: "5px",
+                      textAlign: "center",
+                      whiteSpace: "nowrap",
+                    }}
+                  >
+                    Click to view
+                  </div>
+                  <EnvironmentOutlined
+                    style={{ fontSize: "900px", color: "#000" }}
+                  />
+                </div>
+              </Html>
+            )}
+          </group>
         );
       })}
     </>
