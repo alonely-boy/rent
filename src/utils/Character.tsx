@@ -4,14 +4,16 @@ import {
   CapsuleCollider,
   RapierRigidBody,
 } from "@react-three/rapier";
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useFrame, useThree } from "@react-three/fiber";
 import * as THREE from "three";
 
 export function Character({
   onPositionUpdate,
+  cameraFollow,
 }: {
   onPositionUpdate?: (v: THREE.Vector3) => void;
+  cameraFollow: boolean;
 }) {
   const { scene, animations } = useGLTF("/models/character.glb");
   const { actions } = useAnimations(animations, scene);
@@ -92,10 +94,12 @@ export function Character({
     // 摄像机追踪
     const pos = rigidRef.current?.translation();
     if (pos) {
-      const camOffset = new THREE.Vector3(0, 5, 7);
-      const camTarget = new THREE.Vector3(pos.x, pos.y, pos.z).add(camOffset);
-      camera.position.lerp(camTarget, 0.3);
-      camera.lookAt(pos.x, pos.y + 1, pos.z);
+      if (cameraFollow) {
+        const camOffset = new THREE.Vector3(0, 5, 7);
+        const camTarget = new THREE.Vector3(pos.x, pos.y, pos.z).add(camOffset);
+        camera.position.lerp(camTarget, 0.3);
+        camera.lookAt(pos.x, pos.y + 1, pos.z);
+      }
     }
 
     // 动作切换
@@ -111,24 +115,26 @@ export function Character({
   });
 
   return (
-    <RigidBody
-      ref={rigidRef}
-      type="dynamic"
-      mass={1}
-      friction={1}
-      restitution={0}
-      colliders={false}
-      enabledRotations={[false, false, false]}
-      position={[0, 0.5, 0]}
-    >
-      <CapsuleCollider args={[0.4, 1.2]} position={[0, 1.2, 0]} />
-      <group ref={groupRef}>
-        <primitive object={scene} />
-        {/* <mesh>
+    <>
+      <RigidBody
+        ref={rigidRef}
+        type="dynamic"
+        mass={1}
+        friction={1}
+        restitution={0}
+        colliders={false}
+        enabledRotations={[false, false, false]}
+        position={[0, 1, 0]}
+      >
+        <CapsuleCollider args={[0.4, 1.2]} position={[0, 1.2, 0]} />
+        <group ref={groupRef}>
+          <primitive object={scene} />
+          {/* <mesh>
           <capsuleGeometry args={[0.4, 1.2, 4, 8]} />
           <meshBasicMaterial wireframe color="lime" />
         </mesh> */}
-      </group>
-    </RigidBody>
+        </group>
+      </RigidBody>
+    </>
   );
 }

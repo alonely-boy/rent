@@ -1,6 +1,5 @@
 {
   "building6": {
-    "Interior": "/images/house3/Interior.png",
     "rooms": [
       {
         "name": "living room",
@@ -28,7 +27,7 @@
       },
       {
         "name": "bedroom",
-        "path": "/images/house3/bathroom",
+        "path": "/images/house3/bedroom",
         "roomLabels": [
           {
             "position": [-2, 0, -4.9],
@@ -39,8 +38,7 @@
     ]
   },
 
-  "building5": {
-    "Interior": "/images/house3/Interior.png",
+  "building3": {
     "rooms": [
       {
         "name": "living room",
@@ -59,6 +57,59 @@
           {
             "position": [-4.9, 0, -4],
             "navigateTo": "living room"
+          }
+        ]
+      }
+    ]
+  },
+
+  "building5": {
+    "rooms": [
+      {
+        "name": "living room",
+        "path": "/images/house4/livingroom",
+        "roomLabels": [
+          {
+            "position": [4, 0, 1.5],
+            "navigateTo": "hall"
+          }
+        ]
+      },
+      {
+        "name": "hall",
+        "path": "/images/house4/hall",
+        "roomLabels": [
+          {
+            "position": [-3, 0, -4.9],
+            "navigateTo": "living room"
+          },
+          {
+            "position": [-2, 0, -4.9],
+            "navigateTo": "bathroom"
+          }
+        ]
+      },
+      {
+        "name": "bathroom",
+        "path": "/images/house2",
+        "roomLabels": [
+          {
+            "position": [-2, 0, -4.9],
+            "navigateTo": "hall"
+          }
+        ]
+      }
+    ]
+  },
+
+  "building_supermarket": {
+    "rooms": [
+      {
+        "name": "living room",
+        "path": "/images/supermarket",
+        "roomLabels": [
+          {
+            "position": [-2, 0, -4.9]
           }
         ]
       }

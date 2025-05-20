@@ -88,13 +88,14 @@ const HouseInside = () => {
         <RoomModel
           path={currentRoomModel.path}
           roomLabels={currentRoomModel.roomLabels.map(
-            (label: { position: number[]; navigateTo: string }) => ({
+            (label: { position: number[]; navigateTo?: string }) => ({
               ...label,
               position: [
                 label.position[0] ?? 0,
                 label.position[1] ?? 0,
                 label.position[2] ?? 0,
               ] as [number, number, number],
+              navigateTo: label.navigateTo ?? "",
             })
           )}
           onClick={handleRoomChange}

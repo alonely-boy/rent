@@ -1,5 +1,5 @@
 import { Canvas } from "@react-three/fiber";
-import { OrbitControls, useGLTF, Environment } from "@react-three/drei";
+import { OrbitControls, useGLTF, Environment, Loader } from "@react-three/drei";
 import { Suspense, useMemo } from "react";
 import "../App.css";
 import City from "./MapScene/City";
@@ -7,7 +7,6 @@ import City2 from "./MapScene/City2";
 import Supermarket from "./MapScene/Supermarket";
 import Road from "./MapScene/Road";
 import Deco from "./MapScene/Deco";
-import { Loader } from "../components/StreetScene/Loader";
 
 function Ground() {
   const { scene } = useGLTF("/source/grass_floor.glb");
@@ -16,8 +15,8 @@ function Ground() {
   return (
     <primitive
       object={ground}
-      position={[0, 66, -30]} // 微微低于城市底部，避免 z-fighting
-      scale={[2.5, 2.5, 2.5]} // 根据你的城市大小调节
+      position={[0, 66, -30]}
+      scale={[2.5, 2.5, 2.5]}
     />
   );
 }
@@ -25,14 +24,13 @@ function Ground() {
 function Building() {
   return (
     <div style={{ width: "100vw", height: "100vh" }}>
-      <Loader />
       <Canvas
         camera={{ position: [100, 60, 100], fov: 50 }}
         onCreated={({ gl }) => {
           gl.setClearColor("#a3d5ff");
         }}
       >
-        <ambientLight intensity={0.6} />
+        <ambientLight intensity={0.3} />
         <directionalLight position={[10, 10, 5]} intensity={0.8} />
         <Environment preset="forest" />
 
@@ -51,6 +49,7 @@ function Building() {
           maxPolarAngle={Math.PI / 2}
         />
       </Canvas>
+      <Loader />
     </div>
   );
 }
