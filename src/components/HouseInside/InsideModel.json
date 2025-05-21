@@ -1,5 +1,5 @@
 {
-  "building6": {
+  "building_house1": {
     "rooms": [
       {
         "name": "living room",
@@ -80,21 +80,21 @@
         "path": "/images/house4/hall",
         "roomLabels": [
           {
-            "position": [-3, 0, -4.9],
+            "position": [4.9, 0, -4],
             "navigateTo": "living room"
           },
           {
-            "position": [-2, 0, -4.9],
+            "position": [4.9, 0, 4.9],
             "navigateTo": "bathroom"
           }
         ]
       },
       {
         "name": "bathroom",
-        "path": "/images/house2",
+        "path": "/images/house4/bathroom",
         "roomLabels": [
           {
-            "position": [-2, 0, -4.9],
+            "position": [4.9, 0, -0.5],
             "navigateTo": "hall"
           }
         ]
@@ -110,6 +110,30 @@
         "roomLabels": [
           {
             "position": [-2, 0, -4.9]
+          }
+        ]
+      }
+    ]
+  },
+  "building_hotel": {
+    "rooms": [
+      {
+        "name": "living room",
+        "path": "/images/hotel/living room",
+        "roomLabels": [
+          {
+            "position": [4, 0, -4.9],
+            "navigateTo": "bathroom"
+          }
+        ]
+      },
+      {
+        "name": "bathroom",
+        "path": "/images/hotel/bathroom",
+        "roomLabels": [
+          {
+            "position": [4.9, 0, -0.5],
+            "navigateTo": "living room"
           }
         ]
       }

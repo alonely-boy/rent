@@ -88,8 +88,7 @@
       "z": 87
     },
     "height": 5,
-    "rotationZ": 3.14,
-    "isRenting": true
+    "rotationZ": 3.14
   },
   {
     "id": "c386",
@@ -1830,7 +1829,8 @@
       "z": 22
     },
     "height": 7,
-    "rotationZ": 0
+    "rotationZ": 0,
+    "isRenting": true
   },
   {
     "id": "c110",
@@ -3360,7 +3360,8 @@
       "z": 11
     },
     "height": 7,
-    "rotationZ": 1.57
+    "rotationZ": 1.57,
+    "isRenting": true
   },
   {
     "id": "c440",

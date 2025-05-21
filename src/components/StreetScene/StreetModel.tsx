@@ -22,10 +22,11 @@ export function SimpleRoom({
     null
   );
   const isRenting = [
-    "building6",
+    "building_house1",
     "building3",
     "building5",
     "building_supermarket",
+    "building_hotel",
   ];
 
   useEffect(() => {
@@ -90,7 +91,10 @@ export function SimpleRoom({
             <Html
               position={worldPos.toArray()}
               distanceFactor={10}
-              style={{ pointerEvents: "none" }}
+              style={{
+                pointerEvents: "none",
+                animation: "float 1.5s ease-in-out infinite",
+              }}
             >
               <EnvironmentOutlined
                 style={{ fontSize: "150px", color: "#3f9cff" }}

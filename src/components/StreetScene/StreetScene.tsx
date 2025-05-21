@@ -14,8 +14,9 @@ export function StreetScene() {
   const typeModel: Record<string, string> = {
     c223: "type1",
     "e688036a-f93c-47a0-94f8-e83a380f0db0": "type1",
-    "734f1f1f-2331-4044-8999-3ee4e329d01f": "type2",
     c386: "type2",
+    c413: "type2",
+    c335: "type2",
   };
   const model1 = "/models/street_new.glb";
   const model2 = "/models/street_version2.glb";
@@ -49,12 +50,14 @@ export function StreetScene() {
             </Physics>
             <Environment files="/models/sky.hdr" background />
           </Suspense>
-          <OrbitControls
-            enableZoom={true}
-            enablePan={false}
-            maxPolarAngle={Math.PI / 2}
-            minPolarAngle={Math.PI / 4}
-          />
+          {!cameraFollow && (
+            <OrbitControls
+              enableZoom={true}
+              enablePan={false}
+              maxPolarAngle={Math.PI / 2.2}
+              minPolarAngle={Math.PI / 4}
+            />
+          )}
         </Canvas>
         <Loader />
         <div
@@ -99,7 +102,14 @@ export function StreetScene() {
               />
             </Physics>
           </Suspense>
-          <OrbitControls />
+          {!cameraFollow && (
+            <OrbitControls
+              enablePan={false}
+              enableZoom={true}
+              minPolarAngle={Math.PI / 4}
+              maxPolarAngle={Math.PI / 2.2}
+            />
+          )}
         </Canvas>
         <Loader />
         <div

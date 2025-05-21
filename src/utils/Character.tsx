@@ -4,7 +4,7 @@ import {
   CapsuleCollider,
   RapierRigidBody,
 } from "@react-three/rapier";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef } from "react";
 import { useFrame, useThree } from "@react-three/fiber";
 import * as THREE from "three";
 
@@ -124,15 +124,11 @@ export function Character({
         restitution={0}
         colliders={false}
         enabledRotations={[false, false, false]}
-        position={[0, 1, 0]}
+        position={[0, 1.5, 0]}
       >
         <CapsuleCollider args={[0.4, 1.2]} position={[0, 1.2, 0]} />
         <group ref={groupRef}>
           <primitive object={scene} />
-          {/* <mesh>
-          <capsuleGeometry args={[0.4, 1.2, 4, 8]} />
-          <meshBasicMaterial wireframe color="lime" />
-        </mesh> */}
         </group>
       </RigidBody>
     </>
